@@ -75,8 +75,8 @@ then
   chmod a+x ~/bin/repo
 fi
 
-git config --global user.name $(whoami)@$NODE_NAME
-git config --global user.email jenkins@cyanogenmod.com
+git config --global user.name rongsang
+git config --global user.email wolfenation@gmail.com
 
 mkdir -p $REPO_BRANCH
 cd $REPO_BRANCH
@@ -88,7 +88,7 @@ then
   CORE_BRANCH=$REPO_BRANCH
 fi
 rm -rf .repo/manifests*
-repo init -u $SYNC_PROTO://github.com/CyanogenMod/android.git -b $CORE_BRANCH
+repo init -u $SYNC_PROTO://github.com/rongsang/test.git -b $CORE_BRANCH
 check_result "repo init failed."
 
 # make sure ccache is in PATH
