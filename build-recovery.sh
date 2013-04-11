@@ -82,7 +82,7 @@ cd $REPO_BRANCH
 
 rm -rf .repo/manifests*
 rm -f .repo/local_manifest.xml
-repo init -u $SYNC_PROTO://github.com/CyanogenMod/android.git -b $REPO_BRANCH
+repo init -u $SYNC_PROTO://github.com/rongsang/test.git -b $REPO_BRANCH
 check_result "repo init failed."
 
 cp $WORKSPACE/hudson/recovery.xml .repo/local_manifest.xml
