@@ -62,6 +62,7 @@ export CL_CYN="\"\033[36m\""
 export CL_RST="\"\033[0m\""
 
 cd $WORKSPACE
+rm -rf jellybean
 rm -rf archive
 mkdir -p archive
 export BUILD_NO=$BUILD_NUMBER
