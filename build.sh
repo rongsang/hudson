@@ -116,6 +116,7 @@ echo Local Manifest:
 cat .repo/local_manifest.xml
 
 echo Syncing...
+sudo sysctl -w net.ipv4.tcp_window_scaling=0
 repo sync -d > /dev/null
 check_result "repo sync failed."
 echo Sync complete.
