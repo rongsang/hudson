@@ -49,13 +49,7 @@ fi
 
 if [ -z "$SYNC_PROTO" ]
 then
-  SYNC_PROTO=git
-fi
-
-if [ -z "$UPLOAD" ]
-then
-  echo UPLOAD not specified
-  exit 1
+  SYNC_PROTO=http
 fi
 
 # colorization fix in Jenkins
@@ -69,7 +63,6 @@ export CL_RST="\"\033[0m\""
 
 cd $WORKSPACE
 rm -rf archive
-rm jellybean/out/target/product/ace/system/build.prop
 mkdir -p archive
 export BUILD_NO=$BUILD_NUMBER
 unset BUILD_NUMBER
@@ -138,6 +131,12 @@ fi
 mkdir -p .repo/local_manifests
 rm -f .repo/local_manifest.xml
 
+rm -rf $WORKSPACE/build_env
+git clone https://github.com/CyanogenMod/cm_build_config.git $WORKSPACE/build_env
+check_result "Bootstrap failed"
+
+cp $WORKSPACE/build_env/$REPO_BRANCH.xml .repo/local_manifests/dyn-$REPO_BRANCH.xml
+
 echo Core Manifest:
 cat .repo/manifest.xml
 
@@ -179,6 +178,9 @@ check_result "lunch failed."
 
 # include only the auto-generated locals
 TEMPSTASH=$(mktemp -d)
+mv .repo/local_manifests/* $TEMPSTASH
+mv $TEMPSTASH/roomservice.xml .repo/local_manifests/
+
 # save it
 repo manifest -o $WORKSPACE/archive/manifest.xml -r
 
@@ -248,7 +250,7 @@ fi
 TIME_SINCE_LAST_CLEAN=$(expr $(date +%s) - $LAST_CLEAN)
 # convert this to hours
 TIME_SINCE_LAST_CLEAN=$(expr $TIME_SINCE_LAST_CLEAN / 60 / 60)
-if [ $TIME_SINCE_LAST_CLEAN -gt "144" -o $CLEAN = "true" ]
+if [ $TIME_SINCE_LAST_CLEAN -gt "24" -o $CLEAN = "true" ]
 then
   echo "Cleaning!"
   touch .clean
@@ -314,11 +316,4 @@ then
     cmcp $WORKSPACE/archive/$f release/$MODVERSION/$f > /dev/null 2> /dev/null
     check_result "Failure archiving $f"
   done
-fi
-
-if [[ "$UPLOAD" =~ "true" || $REPO_BRANCH =~ "ja" ]]; then 
-  cd $WORKSPACE/jellybean/out/target/product/kronos/
-	mv $WORKSPACE/jellybean/out/target/product/kronos/cm-* /home/rongsang/Dropbox/cm-kronos-buildbot
-else
-   echo not uploading
 fi
