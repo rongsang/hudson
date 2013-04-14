@@ -68,7 +68,7 @@ mkdir -p archive
 export BUILD_NO=$BUILD_NUMBER
 unset BUILD_NUMBER
 
-export PATH=/var/www/zuuwnpeo/data/jenkins/workspace/bin:$PATH
+export PATH=~/bin:$PATH
 
 export USE_CCACHE=1
 export CCACHE_NLEVELS=4
@@ -77,9 +77,9 @@ export BUILD_WITH_COLORS=0
 REPO=$(which repo)
 if [ -z "$REPO" ]
 then
-  mkdir -p /var/www/zuuwnpeo/data/jenkins/workspace/bin
-  curl https://dl-ssl.google.com/dl/googlesource/git-repo/repo > /var/www/zuuwnpeo/data/jenkins/workspace/bin/repo
-  chmod a+x /var/www/zuuwnpeo/data/jenkins/workspace/bin/repo
+  mkdir -p ~/bin
+  curl https://dl-ssl.google.com/dl/googlesource/git-repo/repo > ~/bin/repo
+  chmod a+x ~/bin/repo
 fi
 
 git config --global user.name $(whoami)@$NODE_NAME
