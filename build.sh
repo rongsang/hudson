@@ -68,7 +68,7 @@ mkdir -p archive
 export BUILD_NO=$BUILD_NUMBER
 unset BUILD_NUMBER
 
-export PATH=~/bin:$PATH
+export PATH=/var/www/zuuwnpeo/data/jenkins/workspace/bin:$PATH
 
 export USE_CCACHE=1
 export CCACHE_NLEVELS=4
