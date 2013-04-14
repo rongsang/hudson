@@ -165,7 +165,7 @@ then
   CLEAN="true"
 fi
 
-. build/envsetup.sh
+#. build/envsetup.sh
 lunch $LUNCH
 check_result "lunch failed."
 
