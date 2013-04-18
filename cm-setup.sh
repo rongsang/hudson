@@ -1,1 +1,1 @@
-vendor/cm/get-prebuilts
+../cm9/vendor/cm/get-prebuilts
